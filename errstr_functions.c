@@ -1,4 +1,6 @@
 #include "shell.h"
+#include <stdlib.h>
+
 /**
  * _eputchar - prints c to stderr
  * @c: str to print
