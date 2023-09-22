@@ -16,7 +16,7 @@ list_t *add_node(list_t **head, const char *str, int num)
 	if (!new_head)
 		return (NULL);
 
-	_memset((void *)new_head, 0, sizeof(list_t))
+	_memset((void *)new_head, 0, sizeof(list_t));
 	new_head->num = num;
 	if (str)
 	{
@@ -40,7 +40,7 @@ list_t *add_node(list_t **head, const char *str, int num)
  */
 list_t *add_node_end(list_t **head, const char *str, int num)
 {
-	listt *new_node, *node;
+	list_t *new_node, *node;
 
 	if (!head)
 		return (NULL);
@@ -82,7 +82,7 @@ size_t print_list_str(const list_t *h)
 	while (h)
 	{
 		_puts(h->str ? h->str : "(nil)");
-		_putcs("\n");
+		_puts("\n");
 		h = h->next;
 		i++;
 	}
@@ -96,7 +96,7 @@ size_t print_list_str(const list_t *h)
  */
 int delete_node_at_index(list_t **head, unsigned int idx)
 {
-	list_t *node, prev_node;
+	list_t *node, *prev_node;
 	unsigned int i = 0;
 
 	if (!head || *head)

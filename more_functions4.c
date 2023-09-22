@@ -6,11 +6,11 @@
 * Return: 0 on failure, converted number on success-1 on error
 */
 void print_error(info_t *info, char *estr)
-{_eputs(info->name);
+{_eputs(info->fname);
 	_eputs(": ");
 	print_d(info->line_count, STDERR_FILENO);
 	_eputs(": ");
-	_eputs(info->agrv[0]);
+	_eputs(info->argv[0]);
 	_eputs(": ");
 	_eputs(estr); }
 /**
@@ -28,10 +28,10 @@ char *convert_number(long int num, int base, int flags)
 
 	if (!(flags & CONVERT_UNSIGNED) && num < 0)
 	{n = -num;
-		sign = ' - '; }
+		sign = '-'; }
 	array = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
 	ptr = &buffer[49];
-	*ptr = NULL;
+	*ptr = '\0';
 	while (n != 0)
 	{*--ptr = array[n % base];
 		n /= base; }

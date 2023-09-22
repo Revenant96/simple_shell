@@ -7,7 +7,7 @@
  * @n: amount of bites to be filled
  * Return: pointer to fille memory
  */
-char _memset(char *s, char b, unsigned int n)
+char *_memset(char *s, char b, unsigned int n)
 {
 	unsigned int i;
 
@@ -41,7 +41,7 @@ void ffree(char **pp)
  * Return: Void
  */
 
-void *_realloc(coid *ptr, unsigned int old_size, unsigned int new_size)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	char *p;
 
@@ -49,7 +49,7 @@ void *_realloc(coid *ptr, unsigned int old_size, unsigned int new_size)
 		return (malloc(new_size));
 
 	if (!new_size)
-		return (free(ptr), NILL);
+		return (free(ptr), NULL);
 	if (new_size == old_size)
 		return (ptr);
 

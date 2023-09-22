@@ -9,13 +9,13 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <limits.h>
-#include <fcnt1.h>
+#include <fcntl.h>
 #include <errno.h>
 
 /* read/write buffers */
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
-#define BUF_FLUSH
+#define BUF_FLUSH -1
 
 /* command chaining */
 #define CMD_NORM	0
@@ -24,8 +24,8 @@
 #define CMD_CHAIN	3
 
 /* converting numbers */
-#define CONVERT_LOWERCASE
-#define CONVERT_UNSINGED
+#define CONVERT_LOWERCASE 1
+#define CONVERT_UNSIGNED 2
 
 /* using sys getline */
 #define USE_GETLINE	0
@@ -108,3 +108,136 @@ typedef struct builtin
 	char *type;
 	int (*func)(info_t *);
 } builtin_table;
+
+/* chain_functions.c */
+int is_chain(info_t *info, char *buf, size_t *p);
+void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len);
+int replace_alias(info_t *info);
+int replace_vars(info_t *info);
+int replace_string(char **old, char *new);
+
+/* emulators.c */
+int _myexit(info_t *);
+int _mycd(info_t *);
+int _myhelp(info_t *);
+
+/* emulators2.c */
+int _myhistory(info_t *);
+int unset_alias(info_t *, char *);
+int set_alias(info_t *, char *);
+int _myalias(info_t *);
+
+/* environment2_functions.c */
+char **get_environ(info_t *);
+int _unsetenv(info_t *, char *);
+int _setenv(info_t *, char *, char *);
+
+/* environment_functions.c */
+int _myenv(info_t *);
+char *_getenv(info_t *, const char *);
+int _mysetenv(info_t *);
+int _myunsetenv(info_t *);
+int populate_env_list(info_t *);
+
+/* errstr_functions.c */
+int _eputchar(char);
+void _eputs(char *);
+int _putfd(char c, int fd);
+int _putsfd(char *str, int fd);
+
+/* getline_functions.c */
+ssize_t input_buf(info_t *, char **, size_t *);
+ssize_t get_input(info_t *);
+ssize_t read_buf(info_t *, char *, size_t *);
+int _getline(info_t *, char **, size_t *);
+void sigintHandler(int);
+
+/* hash_functions.c */
+int hsh(info_t *, char **);
+int find_builtin(info_t *);
+void find_cmd(info_t *);
+void fork_cmd(info_t *);
+/* int loophsh(char **); */
+
+/* info.c */
+void clear_info(info_t *);
+void set_info(info_t *, char **);
+void free_info(info_t *, int);
+
+/* iofunctions.c */
+char *get_history_file(info_t *info);
+int write_history(info_t *info);
+int read_history(info_t *info);
+int build_history_list(info_t *info, char *buf, int count);
+int renumber_history(info_t *info);
+
+/* liststr.c */
+list_t *add_node(list_t **, const char *, int);
+list_t *add_node_end(list_t **, const char *, int);
+size_t print_list_str(const list_t *);
+int delete_node_at_index(list_t **, unsigned int);
+void free_list(list_t **);
+
+/* liststr2.c */
+size_t list_len(const list_t *);
+char **list_to_strings(list_t *);
+size_t print_list(const list_t *);
+list_t *node_starts_with(list_t *, char *, char);
+size_t get_node_index(list_t *, list_t *);
+
+/* main.c */
+int main(int ac, char **av);
+
+
+/* mem_functions.c */
+char *_memset(char *, char, unsigned int);
+void *_realloc(void *, unsigned int, unsigned int);
+void ffree(char **);
+
+/* mem_functions2.c */
+int bfree(void **);
+
+/* more_functions.c */
+int interactive(info_t *);
+int is_delim(char, char *);
+int _isalpha(int);
+int _atoi(char *);
+
+/* more_functions2.c */
+int _erratoi(char *);
+void remove_comments(char *);
+
+/* more_functions3.c */
+int print_d(int, int);
+
+/* more_functions4.c */
+void print_error(info_t *, char *);
+char *convert_number(long int, int, int);
+
+/* path.c */
+int is_cmd(info_t *, char *);
+char *dup_chars(char *, int, int);
+char *find_path(info_t *, char *, char *);
+
+/* str_functions.c */
+int _strlen(char *);
+int _strcmp(char *, char *);
+char *starts_with(const char *, const char *);
+char *_strcat(char *, char *);
+
+/* str_functions2.c */
+char *_strcpy(char *, char *);
+char *_strdup(const char *);
+int _putchar(char);
+void _puts(char *);
+
+/* str_functions3.c */
+char *_strncpy(char *, char *, int);
+char *_strncat(char *, char *, int);
+char *_strchr(char *, char );
+
+/* str_functions4.c */
+char **_strtow(char *, char *);
+char **_strtow2(char *, char );
+
+#endif

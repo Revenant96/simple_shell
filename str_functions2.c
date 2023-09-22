@@ -11,7 +11,7 @@ char *_strcpy(char *dest, char *src)
 {
 	int i = 0;
 
-	if (des == src || src == 0)
+	if (dest == src || src == 0)
 		return (dest);
 
 	while (src[i])
@@ -82,9 +82,9 @@ void _puts(char *str)
 	int i = 0;
 
 	if (!str)
-		return (NULL);
+		return;
 
-	while (str[i] != NULL)
+	while (str[i] != '\0')
 	{
 		_putchar(str[i]);
 		i++;
