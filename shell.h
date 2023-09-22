@@ -234,10 +234,10 @@ void _puts(char *);
 /* str_functions3.c */
 char *_strncpy(char *, char *, int);
 char *_strncat(char *, char *, int);
-char *_strchr(char *, char );
+char *_strchr(char *, char);
 
 /* str_functions4.c */
 char **_strtow(char *, char *);
-char **_strtow2(char *, char );
+char **_strtow2(char *, char);
 
 #endif
